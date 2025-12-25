@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* glassmorphism utilities */
+.glass-card {
+  background: rgba(255,255,255,0.04);
+  -webkit-backdrop-filter: blur(8px) saturate(140%);
+  backdrop-filter: blur(8px) saturate(140%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  /* subtle noisy texture using inline SVG */
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.03' /></svg>");
+  opacity: 1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.glass-card .content {
+  position: relative;
+  z-index: 2;
+}
+
+.rough-bg {
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+  background-size: 3px 3px, 100% 100%;
+}
+
+/* small responsive touch */
+@media (min-width: 768px) {
+  .glass-card { border-radius: 14px; }
+}
+
+/* panel background to reduce empty feeling */
+.panel-fill {
+  background-image: radial-gradient(ellipse at top left, rgba(255,255,255,0.02), transparent 20%), linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0));
+}
+
+/* make glass cards a little roomier on large screens */
+@media (min-width: 1024px) {
+  .glass-card { padding: 1.25rem; }
+}
+
+/* subtle dark vignette so panels don't feel like floating islands */
+.panel-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 80px 120px rgba(0,0,0,0.2);
+}
+
+/* Vertical timeline styles for MyCareer */
+.timeline { position: relative; }
+.timeline-list { list-style: none; margin: 0; padding: 0; padding-left: 36px; display: flex; flex-direction: column; gap: 18px; }
+.timeline-list::before { content: ''; position: absolute; left: 18px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border-radius: 2px; }
+.timeline-item { display: flex; gap: 14px; align-items: flex-start; }
+.timeline-dot { width: 12px; height: 12px; border-radius: 9999px; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(230,230,230,0.95)); border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 8px 22px rgba(0,0,0,0.45); flex: 0 0 auto; margin-top: 4px; }
+.timeline-body { color: rgba(255,255,255,0.95); }
+.timeline-title { font-weight: 700; font-size: clamp(0.8rem, 0.9vw + 0.14rem, 0.94rem); }
+.timeline-sub { font-size: clamp(0.7rem, 0.8vw + 0.06rem, 0.84rem); opacity: 0.85; margin-top: 2px; }
+.timeline-item .text-sm { margin-top: 6px; font-size: clamp(0.76rem, 0.9vw + 0.05rem, 0.9rem); }
+
+/* Career panel: force left-alignment and smaller text on narrow screens */
+.career-panel .glass-card .content { text-align: left; }
+.career-panel .timeline-body { text-align: left; }
+.career-panel .timeline-title { font-size: clamp(0.95rem, 1.4vw + 0.1rem, 1.2rem); }
+.career-panel .timeline-sub { font-size: clamp(0.78rem, 1vw + 0.05rem, 0.9rem); opacity: 0.85; }
+.career-panel .timeline-item .text-sm { font-size: clamp(0.72rem, 0.9vw, 0.88rem); }
+
+@media (min-width: 768px) {
+  .timeline-title { font-size: clamp(1.05rem, 1.1vw + 0.2rem, 1.2rem); }
+  .timeline-list { gap: 22px; }
+}
+
+/* social button */
+.social-btn {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.social-btn:hover, .social-btn:focus {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.10);
+}
+
+.social-btn svg { display: block; }
+
+/* Expertise responsiveness: use auto-fit so cards wrap on any screen */
+.expertise-grid {
+  grid-auto-rows: minmax(64px, auto);
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+}
+
+/* Scale card text so adding more boxes won't overflow the panel */
+.glass-card .content {
+  font-size: clamp(0.66rem, 0.9vw + 0.16rem, 0.94rem);
+  text-align: center;
+  word-wrap: break-word;
+}
+
+/* Slightly smaller career headings on narrow screens, larger on md+ */
+.career-heading { font-size: clamp(0.85rem, 1.4vw, 1.3rem); }
+
+@media (max-width: 640px) {
+  .expertise-grid { gap: 10px; }
+  .glass-card { padding: 0.5rem; }
+}
+
+@media (max-width: 480px) {
+  /* tighter timeline spacing and smaller dots for small phones */
+  .timeline-list { gap: 12px; padding-left: 28px; }
+  .timeline-dot { width: 10px; height: 10px; margin-top: 3px; }
+  .timeline-title { font-size: clamp(0.78rem, 1.0vw + 0.12rem, 0.9rem); }
+  .timeline-sub { font-size: clamp(0.68rem, 0.75vw + 0.04rem, 0.8rem); }
+
+  /* make glass cards slimmer on very small screens */
+  .glass-card { padding: 0.375rem; border-radius: 10px; }
+  .panel-fill { padding: 0.75rem; }
+  .expertise-grid { gap: 8px; }
+  .glass-card .content { font-size: clamp(0.6rem, 0.85vw + 0.14rem, 0.88rem); }
+
+  /* slightly smaller social buttons */
+  .social-btn { width: 36px; height: 36px; }
+  .social-btn svg { width: 18px; height: 18px; }
+
+  /* ensure scrollable panels scroll smoothly on touch devices */
+  .panel-scrollable { overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+
+  /* extra safety: ensure timeline specifically can scroll within glass-card */
+  .career-panel .timeline { overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+}
+
+/* Mobile viewport / safe-area & scroll behavior */
+:root {
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+}
+html, body, #root {
+  height: 100%;
+  overscroll-behavior: none; /* prevent rubber-band scrolling */
+  touch-action: manipulation;
+}
+.app-viewport {
+  height: 100dvh; /* uses dynamic viewport height on modern browsers */
+  min-height: -webkit-fill-available;
+  padding-bottom: env(safe-area-inset-bottom);
+  overflow: hidden;
+}
+
+
+
+
