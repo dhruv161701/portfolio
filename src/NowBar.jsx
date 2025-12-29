@@ -345,11 +345,11 @@ export default function NowBar({ title, color, expanded, onClick, zIndex = 10, s
 
     if (title === 'Projects') {
       const projects = [
-        { name: 'Personal AI Assistant', url: 'https://example.com/project1', desc: 'It is worked on your data on own system' },
-        { name: 'Student Management System - Desktop Application ', url: 'https://example.com/project2' },
-        { name: 'Student & Teacher Content and Task Manangment System', url: 'https://example.com/project3' },
-        { name: 'KCW - A Mobile Application', url: 'https://example.com/project4' },
-        { name: 'Movie Recomandation System', url: 'https://example.com/project5' }
+        { name: 'StackInit', url: 'https://example.com/project1', desc: 'Very Helpfull To Developer' },
+        { name: 'Student Grade Management System - Desktop Application ', url: 'https://example.com/project2' ,desc: 'Student can view and faculty can add marks or update marks.'},
+        { name: 'Student & Teacher E-Content and Task Manangment System', url: 'https://example.com/project3', desc: 'Teacher Can upload and student can install materials , Task manager' },
+        { name: 'KCW - A Mobile Application', url: 'https://example.com/project4' ,desc: 'Connects Consumer to Seller' },
+        { name: 'Movie Recomandation System', url: 'https://example.com/project5' ,desc: 'Suggests movie according to your test'}
       ];
       return (
         <div className="w-full h-full p-4 md:p-6 panel-fill flex flex-col gap-2 md:gap-3" onClick={stop}>
@@ -484,3 +484,4 @@ export default function NowBar({ title, color, expanded, onClick, zIndex = 10, s
     </div>
   );
 }
+
